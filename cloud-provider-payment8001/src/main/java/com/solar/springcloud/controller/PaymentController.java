@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 支付微服务控制器
@@ -68,5 +69,20 @@ public class PaymentController {
     @GetMapping("/payment/lb")
     public String getPaymentLB(){
         return serverPort;
+    }
+
+    @GetMapping("/payment/feign/timeout")
+    public String paymentFeignTimeout(){
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
+
+    @GetMapping("payment/zipkin")
+    public String paymentZipkin(){
+        return "hi, i am paymentzipkin server fall back , welcome to solar , O(∩_∩)O哈哈~~";
     }
 }
